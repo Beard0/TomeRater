@@ -25,7 +25,11 @@ class User(object):
 
 
     def __repr__(self):
-        return "User {}, email: {}, books read : {}.".format(self.name,self.email,self.books)
+        count = len(self.books.keys())
+        # for k in self.books.keys():
+        #     count += 1
+
+        return "User {}, email: {}, books read : {}.".format(self.name,self.email,count)
 
 
     def __eq__(self, other_user):
@@ -139,7 +143,7 @@ class TomeRater: # MAIN
 
         if email in self.users.keys():
             # if rating is not None: # might not need
-            print(self.users[email])
+            # print(self.users[email])
             self.users[email].read_book(book, rating) # book is already passed as object of Book()
             book.add_rating(rating)
             if book in self.books.keys():# is book object in dict books
@@ -163,15 +167,15 @@ class TomeRater: # MAIN
 
     def add_user(self, name, email, books=None):
         # if type(books) is list:
-        print()
+
         user = User(name, email)
         self.users[email] = user  # self used if calling against object
         #print(type(self.users))
         if books is list:
-            if books is not None:
-                for i in books:
-                    print(i)
-                    self.add_book_to_user(i, email, None)
+        # if books is not None:
+            for i in books:
+                # print(i)
+                self.add_book_to_user(i, email, None)
 
     def print_catalog(self):
         for k in self.books.keys():
@@ -202,9 +206,9 @@ class TomeRater: # MAIN
 
 # TOME RATER DUBUG
 if DEBUG == True:
-    fiction = Fiction("Moby Dick", "Mr. Moby", 1234567)
-    non_f = Non_Fiction("Moby Dick, True Story", "Survival on the deep blue", "Adventure", 1234567)
-    max_b = User("Max B", "max@a.mail.com")
+    fiction = Fiction("Moby Dick", "Dik Mob", 1234567)
+    non_f = Non_Fiction("Moby Dick, True Story", "Survival on the deep blue", "hardcore", 1234567)
+    max_b = User("Max B", "max_sux@a.mail.com")
     alek_r = User("Alek R", "alekr@mail.com")
     max_b.change_email("maxb@boss.com")
     moby = Book("Moby Dick", 1234561)
