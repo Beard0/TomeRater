@@ -29,13 +29,12 @@ class User(object):
         count = len(self.books.keys())
         # for k in self.books.keys():
         #     count += 1
-
         return "User {}, email: {}, books read : {}.".format(self.name,self.email,count)
 
 
     def __eq__(self, other_user):
         return other_user.name == self.name and other_user.email == self.email
-        # other_user.email == self.email
+
     def read_book(self, book, rating=None):
         if rating is not None:
             self.books[book] = rating
@@ -132,7 +131,9 @@ class TomeRater: # MAIN
         #maps Book object to number of Users that have read it
 
     def create_book(self, title, isbn): #creates new book
-        return Book(title, isbn)
+        book = Book(title, isbn)
+        return book
+
 
     def create_novel(self, title, author, isbn): #create new Fiction
         return Fiction(title, author, isbn)
@@ -171,13 +172,13 @@ class TomeRater: # MAIN
         # if type(books) is list:
 
         user = User(name, email)
-        self.users[email] = user  # self used if calling against object
+        self.users[user.email] = user  # self used if calling against object
         #print(type(self.users))
-        if books is list:
-        # if books is not None:
-            for i in books:
-                # print(i)
-                self.add_book_to_user(i, email, None)
+        if books is not None:
+            if books is list:
+                for i in books:
+                    # print(i)
+                    self.add_book_to_user(i, email, None)
 
     def print_catalog(self):
         for k in self.books.keys():
@@ -190,11 +191,23 @@ class TomeRater: # MAIN
 
         # print self.users objects of User
 
-    def most_read_book(self):
+    def get_most_read_book(self):
+        largest_key = None
+        largest_value = float("-inf")
+        for key, value in self.books.items():
+            if value > largest_value:
+                largest_value = value
+                largest_key = key
+        return largest_key.get_title()
         # iterate through self.books and return book that has been read the most
         # Value is what should be checked for max
-        pass
+
     def highest_rated_book(self):
+        largest_key = 0
+        for key in self.books.keys():
+            if key.get_average_rating() > largest_key:
+                largest_key = key.get_average_rating()
+        return largest_key
         # iterate through all self.books and return book w/ highest average rating
         # check key in self.book than check book.get_average_rating() for max rating
         pass
