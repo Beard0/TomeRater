@@ -210,13 +210,20 @@ class TomeRater: # MAIN
         return largest_key
         # iterate through all self.books and return book w/ highest average rating
         # check key in self.book than check book.get_average_rating() for max rating
-        pass
+
     def most_positive_user(self):
+        largest_value = 0
+        user = None
+        for value in self.users.values():
+            if value.get_average_rating() > largest_value:
+                largest_value = value.get_average_rating()
+                user = value
+        return user.name
         # iterate through all of the users in self.users
         # return user w/ highest average rating
         # self.users are Users()
         # call user.get_average_rating() on Users
-        pass
+
 
 
 # TOME RATER DUBUG
