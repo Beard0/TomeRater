@@ -202,9 +202,9 @@ class TomeRater: # MAIN
 
 # TOME RATER DUBUG
 if DEBUG == True:
-    fiction = Fiction("Moby Dick", "Dik Mob", 1234567)
-    non_f = Non_Fiction("Moby Dick, True Story", "Survival on the deep blue", "hardcore", 1234567)
-    max_b = User("Max B", "max_sux@a.mail.com")
+    fiction = Fiction("Moby Dick", "Mr. Moby", 1234567)
+    non_f = Non_Fiction("Moby Dick, True Story", "Survival on the deep blue", "Adventure", 1234567)
+    max_b = User("Max B", "max@a.mail.com")
     alek_r = User("Alek R", "alekr@mail.com")
     max_b.change_email("maxb@boss.com")
     moby = Book("Moby Dick", 1234561)
