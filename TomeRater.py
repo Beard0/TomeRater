@@ -4,6 +4,7 @@
 DEBUG = False
 
 
+
 class User(object):
     def __init__(self, name, email):
         self.name = name
@@ -74,7 +75,7 @@ class Book:
             print("{} ISBN has been updated to {isbn}".format(self.title, isbn=self.isbn))
 
     def add_rating(self,rating):
-        if rating in range(0,5):
+        if rating is not None and rating in range(0,5):
             self.ratings.append(rating)
         else:
             print("Invalid Rating, Enter 0-4")
@@ -145,7 +146,8 @@ class TomeRater: # MAIN
             # if rating is not None: # might not need
             # print(self.users[email])
             self.users[email].read_book(book, rating) # book is already passed as object of Book()
-            book.add_rating(rating)
+            if rating is not None:
+                book.add_rating(rating)
             if book in self.books.keys():# is book object in dict books
                 self.books[book] += 1 # add value for read once
             elif book not in self.books.keys(): # if book object not in books dict
@@ -220,7 +222,7 @@ if DEBUG == True:
     book1 = Tome_Rater.create_book("Society of Mind", 12345678)
     Tome_Rater.add_user("David Marr", "david@computation.org")
     Tome_Rater.add_book_to_user(non_f, "alan@turing.com", 3)
-
+    print()
 
     print(book1.title)
     print("compare", max_b == alek_r)
@@ -228,3 +230,4 @@ if DEBUG == True:
     print(fiction)
     print(non_f.get_subject())
     print("**END DEBUG**")
+    Tome_Rater.print_catalog()
