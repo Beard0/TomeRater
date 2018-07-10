@@ -4,33 +4,27 @@
 DEBUG = False
 
 
-
 class User(object):
     def __init__(self, name, email):
         self.name = name
         self.email = email
         self.books = {}
-        pass
-
 
     def get_email(self):
         # return email of associated user
         return self.email
 
-
     def change_email(self, address):
 
         if address != self.email:
             self.email = address
-            print("{} email has been updated to {}.".format(self.name,self.email))
-
+            print("{} email has been updated to {}.".format(self.name, self.email))
 
     def __repr__(self):
         count = len(self.books.keys())
         # for k in self.books.keys():
         #     count += 1
-        return "User {}, email: {}, books read : {}.".format(self.name,self.email,count)
-
+        return "User {}, email: {}, books read : {}.".format(self.name, self.email, count)
 
     def __eq__(self, other_user):
         return other_user.name == self.name and other_user.email == self.email
@@ -51,7 +45,7 @@ class User(object):
         for v in self.books.values():
             avg_rate += v
             count += 1
-        return int(avg_rate / count) # force integer
+        return int(avg_rate / count)  # force integer
 
         # iterates through all values in self.books
         # returns average rating in dictionary
@@ -62,6 +56,7 @@ class Book:
         self.title = title
         self.isbn = isbn
         self.ratings = []
+
     def get_title(self):
         return self.title
 
@@ -73,15 +68,14 @@ class Book:
             self.isbn = new_isbn
             print("{} ISBN has been updated to {isbn}".format(self.title, isbn=self.isbn))
 
-    def add_rating(self,rating):
-        if rating is not None and rating in range(0,5):
+    def add_rating(self, rating):
+        if rating is not None and rating in range(0, 5):
             self.ratings.append(rating)
         else:
             print("Invalid Rating, Enter 0-4")
 
     def __eq__(self, other):
         return other.title == self.title and other.isbn == self.isbn
-
 
     def get_average_rating(self):
         avg_rate = 0
@@ -98,17 +92,19 @@ class Book:
         # when we try to make dictionary with lists as keys
         return hash((self.title, self.isbn))
 
+
 class Fiction(Book):
     def __init__(self, title, author, isbn):
         super().__init__(title, isbn)
         if author:
             self.author = author
+
     def __repr__(self):
         return "{title} by {author}".format(title=self.title, author=self.title)
 
 
 class Non_Fiction(Book):
-    def __init__(self,title, subject, level, isbn):
+    def __init__(self, title, subject, level, isbn):
         super().__init__(title, isbn)
         if subject and level:
             self.subject = subject
@@ -123,22 +119,22 @@ class Non_Fiction(Book):
     def __repr__(self):
         return "{title}, a {level} manual on {subject}".format(title=self.title, level=self.level, subject=self.subject)
 
-class TomeRater: # MAIN
+
+class TomeRater:  # MAIN
     def __init__(self):
         self.users = {}
-        #maps user email to User object
+        # maps user email to User object
         self.books = {}
-        #maps Book object to number of Users that have read it
+        # maps Book object to number of Users that have read it
 
-    def create_book(self, title, isbn): #creates new book
+    def create_book(self, title, isbn):  # creates new book
         book = Book(title, isbn)
         return book
 
-
-    def create_novel(self, title, author, isbn): #create new Fiction
+    def create_novel(self, title, author, isbn):  # create new Fiction
         return Fiction(title, author, isbn)
 
-    def create_non_fiction(self, title, subject, level, isbn): #create Non-Fiction
+    def create_non_fiction(self, title, subject, level, isbn):  # create Non-Fiction
         return Non_Fiction(title, subject, level, isbn)
 
     def add_book_to_user(self, book, email, rating=None):
@@ -146,13 +142,13 @@ class TomeRater: # MAIN
         if email in self.users.keys():
             # if rating is not None: # might not need
             # print(self.users[email])
-            self.users[email].read_book(book, rating) # book is already passed as object of Book()
+            self.users[email].read_book(book, rating)  # book is already passed as object of Book()
             if rating is not None:
                 book.add_rating(rating)
-            if book in self.books.keys():# is book object in dict books
-                self.books[book] += 1 # add value for read once
-            elif book not in self.books.keys(): # if book object not in books dict
-                self.books[book] = 1 # user read book one time
+            if book in self.books.keys():  # is book object in dict books
+                self.books[book] += 1  # add value for read once
+            elif book not in self.books.keys():  # if book object not in books dict
+                self.books[book] = 1  # user read book one time
 
 
 
@@ -173,7 +169,7 @@ class TomeRater: # MAIN
 
         user = User(name, email)
         self.users[user.email] = user  # self used if calling against object
-        #print(type(self.users))
+        # print(type(self.users))
         if books is not None:
             if books is list:
                 for i in books:
@@ -182,12 +178,12 @@ class TomeRater: # MAIN
 
     def print_catalog(self):
         for k in self.books.keys():
-            print(k)
+            print(k.get_title())
         # iterate through all self.books and prints them which are Book obj.
-        pass
+
     def print_users(self):
         for v in self.users.values():
-            print(v)
+            print(v.name)
 
         # print self.users objects of User
 
@@ -225,7 +221,6 @@ class TomeRater: # MAIN
         # call user.get_average_rating() on Users
 
 
-
 # TOME RATER DUBUG
 if DEBUG == True:
     fiction = Fiction("Moby Dick", "Dik Mob", 1234567)
@@ -242,7 +237,7 @@ if DEBUG == True:
     book1 = Tome_Rater.create_book("Society of Mind", 12345678)
     Tome_Rater.add_user("David Marr", "david@computation.org")
     Tome_Rater.add_book_to_user(non_f, "alan@turing.com", 3)
-    print()
+    print(Tome_Rater)
 
     print(book1.title)
     print("compare", max_b == alek_r)
